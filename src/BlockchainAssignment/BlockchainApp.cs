@@ -23,7 +23,7 @@ namespace BlockchainAssignment
         public BlockchainApp()
         {
             InitializeComponent();
-            blockchain= new Blockchain();
+            blockchain = new Blockchain();
 
             printerConsole.Text = "A new Blockchain has been created and initialised!\n";
         }
@@ -40,7 +40,7 @@ namespace BlockchainAssignment
             DialogResult resultWindow = MessageBox.Show(message, title, buttonOptions, type, defaultButton);
         }
 
-        public bool isPositiveDouble(String text) 
+        public bool isPositiveDouble(String text)
         {
             bool isEmpty = string.IsNullOrEmpty(text);
             bool isDouble = text.Contains(".");
@@ -77,7 +77,7 @@ namespace BlockchainAssignment
         {
             String output = String.Empty;
 
-            foreach (Block block in blockchain.blocks) 
+            foreach (Block block in blockchain.blocks)
             {
                 output += blockchain.GetBlockAsString((int)block.index);
             }
@@ -122,11 +122,31 @@ namespace BlockchainAssignment
         /// </summary>
         private void newBlockButton_Click(object sender, EventArgs e)
         {
-            List<Transaction> transactions = blockchain.GetPendingTransactions();
-            Block newBlock = new Block(blockchain.GetEndBlock(), transactions, publicKeyTextBox.Text);
-            blockchain.blocks.Add(newBlock);
+            if (wallet != null)
+            {
+                List<Transaction> transactions = blockchain.GetPendingTransactions();
 
-            printerConsole.Text = blockchain.ToString();
+                Stopwatch stopwatch = new Stopwatch();
+                double elapsedTime;
+
+                stopwatch.Start();
+                Block newBlock = new Block(blockchain.GetEndBlock(), transactions, blockchain.difficulty, publicKeyTextBox.Text);
+                stopwatch.Stop();
+                elapsedTime = stopwatch.Elapsed.TotalSeconds;
+
+                newBlock.mineTime = elapsedTime;
+
+                blockchain.blocks.Add(newBlock);
+                printerConsole.Text = blockchain.ToString();
+
+                blockchain.AdjustDifficulty(blockchain, 4);
+            }
+
+            else
+            {
+                String message = "Wallet impossible to locate, please create one before mining for rewards.";
+                ShowMessage("Error", message, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+            }
         }
 
         /// <summary>
@@ -139,7 +159,7 @@ namespace BlockchainAssignment
             bool amountIsDouble = amountTextBox.Text.Contains(".");
             bool feeIsDouble = feeTextBox.Text.Contains(".");
 
-            if (amountIsEmpty || feeIsEmtpy && !amountIsDouble || !feeIsDouble)
+            if ((amountIsEmpty || feeIsEmtpy) && (!amountIsDouble || !feeIsDouble))
             {
                 printerConsole.Text = "ERROR::TRANSACTION_FAILURE: Transactions require both a transferrable amount and a fee value, and to be in the correct format (Double)!";
             }
@@ -148,7 +168,7 @@ namespace BlockchainAssignment
                 Double currentBalance = blockchain.CalculateBalance(publicKeyTextBox.Text);
                 Double transactionCost = Double.Parse(amountTextBox.Text) + Double.Parse(feeTextBox.Text);
 
-                if (transactionCost < currentBalance)
+                if (transactionCost <= currentBalance)
                 {
                     Transaction transaction = new Transaction(publicKeyTextBox.Text, receiverKeyTextBox.Text, Double.Parse(amountTextBox.Text), Double.Parse(feeTextBox.Text), privateKeyTextBox.Text);
                     transaction.transactionCategory = Transaction.Category.STANDARD;
@@ -170,7 +190,7 @@ namespace BlockchainAssignment
             String transactionOutput = String.Empty;
             List<Transaction> transactions = blockchain.GetPendingTransactions();
 
-            foreach (Transaction transaction in transactions) 
+            foreach (Transaction transaction in transactions)
             {
                 transactionOutput += transaction.ToString() + "\n";
             }
@@ -246,7 +266,7 @@ namespace BlockchainAssignment
         // Checks the wallet balance through traversing all the nodes and making note of all credits/debits
         private void checkBalanceButton_Click(object sender, EventArgs e)
         {
-            if (wallet == null) 
+            if (wallet == null)
             {
                 String message = "No associated wallet was located.";
                 ShowMessage("Error", message, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);

@@ -15,6 +15,8 @@ namespace BlockchainAssignment
 
         int transactionsPerBlock = 5;
 
+        public int difficulty = 5;
+
         public Blockchain()
         {
             blocks.Add(new Block());
@@ -51,6 +53,28 @@ namespace BlockchainAssignment
         public double CalculateBalance(String address) 
         {
             double balance = 0.0;
+
+            foreach (Transaction t in transactionsPool) 
+            {
+                if (t.destinationAddress.Equals(address))
+                {
+                    balance += t.amount;
+                }
+
+                if (t.sourceAddress.Equals(address))
+                {
+                    if (t.transactionFee > 0.0)
+                    {
+                        balance -= t.amount + t.transactionFee;
+                    }
+
+                    else
+                    {
+                        balance -= t.amount;
+                    }
+                }
+            }
+
             foreach (Block block in blocks)
             {
                 foreach (Transaction transaction in block.transactions)
@@ -69,11 +93,34 @@ namespace BlockchainAssignment
             return balance;
         }
 
-        public bool ValidateMerkleRoot(Block block) 
+        public bool ValidateMerkleRoot(Block block)
         {
             String reMerkle = Block.MerkleRoot(block.transactions);
 
             return reMerkle.Equals(block.merkleRoot);
+        }
+
+        // Adjusts mining difficulty based on time it takes to mine
+        public void AdjustDifficulty(Blockchain blockchain, int stride)
+        {
+            if ((blockchain.blocks.Count() - 1) % stride == 0)
+            {
+                // Gets last 4 blocks of blockchain
+                double timeMined = blockchain.blocks.Skip(Math.Max(0, blockchain.blocks.Count() - stride)).Aggregate(0.0, (total, block) => total + block.mineTime) / stride;
+                double differenceRatio = ((stride * 2) / timeMined);
+
+                // Taking more time than predicted therefore decreasing difficulty
+                if (differenceRatio < 0.7)
+                {
+                    blockchain.difficulty--;
+                }
+
+                // Taking less time than predicted therefore increasing difficulty
+                else if (differenceRatio > 1.3)
+                {
+                    blockchain.difficulty++;
+                }
+            }
         }
 
         public override string ToString()

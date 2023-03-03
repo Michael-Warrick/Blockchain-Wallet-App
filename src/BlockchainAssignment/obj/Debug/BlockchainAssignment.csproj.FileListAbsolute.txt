@@ -38,3 +38,14 @@ X:\Year 3\CS3BC20\BlockchainAssignment\BlockchainAssignment\obj\Debug\Blockchain
 X:\Year 3\CS3BC20\BlockchainAssignment\BlockchainAssignment\obj\Debug\BlockchainAssignment.csproj.CoreCompileInputs.cache
 X:\Year 3\CS3BC20\BlockchainAssignment\BlockchainAssignment\obj\Debug\BlockchainAssignment.exe
 X:\Year 3\CS3BC20\BlockchainAssignment\BlockchainAssignment\obj\Debug\BlockchainAssignment.pdb
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\bin\Debug\BlockchainAssignment.exe.config
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\bin\Debug\BlockchainAssignment.exe
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\bin\Debug\BlockchainAssignment.pdb
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Debug\BlockchainAssignment.csproj.AssemblyReference.cache
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Debug\BlockchainAssignment.csproj.SuggestedBindingRedirects.cache
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Debug\BlockchainAssignment.BlockchainApp.resources
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Debug\BlockchainAssignment.Properties.Resources.resources
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Debug\BlockchainAssignment.csproj.GenerateResource.cache
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Debug\BlockchainAssignment.csproj.CoreCompileInputs.cache
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Debug\BlockchainAssignment.exe
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Debug\BlockchainAssignment.pdb

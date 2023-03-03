@@ -21,6 +21,8 @@ namespace BlockchainAssignment
         public long nonce = 0;
         public int difficulty = 5;
 
+        public double mineTime = 0;
+
         // Rewards/Fees
         public Double reward = 1.0;
         public Double fees = 0.0;
@@ -45,13 +47,14 @@ namespace BlockchainAssignment
             this.hash = Mine();
         }
 
-        public Block(Block endBlock, List<Transaction> transactions, String address = "") 
+        public Block(Block endBlock, List<Transaction> transactions, int difficulty, String address = "")
         {
             this.timeStamp = DateTime.Now;
             this.index = endBlock.index + 1;
             this.previousBlockHash = endBlock.hash;
 
             this.minerAddress = address;
+            this.difficulty = difficulty;
 
             transactions.Add(CreateRewardTransaction(transactions));
             this.transactions = transactions;
@@ -111,13 +114,15 @@ namespace BlockchainAssignment
         public static String MerkleRoot(List<Transaction> transactions)
         {
             List<String> hashes = transactions.Select(t => t.hash).ToList();
+
             if (hashes.Count == 0)
             {
                 return String.Empty;
             }
+
             if (hashes.Count == 1)
             {
-                return HashCode.HashTools.CombineHash(hashes[1], hashes[1]);
+                return HashCode.HashTools.CombineHash(hashes[0], hashes[0]);
             }
 
             while (hashes.Count != 1)
@@ -157,6 +162,7 @@ namespace BlockchainAssignment
                 "\nHash: " + hash +
                 "\nNonce: " + nonce.ToString() +
                 "\nMining Difficulty: " + difficulty.ToString() +
+                "\nMine Time: " + mineTime.ToString() +
                 "\nRewards: " + reward.ToString() +
                 "\nFees: " + fees.ToString() +
                 "\nMiner Address: " + minerAddress +
