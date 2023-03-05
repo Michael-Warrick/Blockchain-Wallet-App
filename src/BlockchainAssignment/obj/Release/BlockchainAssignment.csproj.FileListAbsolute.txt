@@ -1,0 +1,11 @@
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\bin\Release\BlockchainAssignment.exe.config
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\bin\Release\BlockchainAssignment.exe
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\bin\Release\BlockchainAssignment.pdb
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Release\BlockchainAssignment.csproj.AssemblyReference.cache
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Release\BlockchainAssignment.csproj.SuggestedBindingRedirects.cache
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Release\BlockchainAssignment.BlockchainApp.resources
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Release\BlockchainAssignment.Properties.Resources.resources
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Release\BlockchainAssignment.csproj.GenerateResource.cache
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Release\BlockchainAssignment.csproj.CoreCompileInputs.cache
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Release\BlockchainAssignment.exe
+C:\Users\mitch\OneDrive - University of Reading\Documents\Year 3\CS3BC20\UoR-Final-Year-Blockchain-Assignment\src\BlockchainAssignment\obj\Release\BlockchainAssignment.pdb

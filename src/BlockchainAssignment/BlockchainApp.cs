@@ -284,63 +284,38 @@ namespace BlockchainAssignment
         {
             if (blockchain.blocks.Count == 1)
             {
-                if (!blockchain.ValidateMerkleRoot(blockchain.blocks[0]))
+                if (!Blockchain.ValidateHash(blockchain.blocks[0])) // Recompute Hash to check validity
                 {
-                    String errorMessage = "Blockchain is invalid, doesn't satisfy Merkle Root Algorithm.";
-                    ShowMessage("Contiguity Check", errorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                    String message = "Blockchain is invalid";
+                    ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
                 }
                 else
                 {
                     String message = "Blockchain is valid.";
                     ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                 }
-
                 return;
             }
 
-            // Checking all blocks for previous block's hash and also verifying transactions through satisfying merkle root.
-            for (int i = 1; i < blockchain.blocks.Count; i++)
+            for (int i = 1; i <= blockchain.blocks.Count; i++)
             {
-                String currentBlockPreviousHash = blockchain.blocks[i].previousBlockHash;
-                String previousBlockHash = blockchain.blocks[i - 1].hash;
-                Boolean merkleRootIsValid = blockchain.ValidateMerkleRoot(blockchain.blocks[i]);
-
-                if (!merkleRootIsValid)
+                if (
+                    blockchain.blocks[i].previousBlockHash != blockchain.blocks[i - 1].hash || // Check hash "chain"
+                    !Blockchain.ValidateHash(blockchain.blocks[i]) ||  // Check each blocks hash
+                    !Blockchain.ValidateMerkleRoot(blockchain.blocks[i]) // Check transaction integrity using Merkle Root
+                )
                 {
-                    blockchain.isValid = false;
+                    String message = "Blockchain is invalid.\n\n";
+                    message += "\nValidates Hash: " + Blockchain.ValidateHash(blockchain.blocks[i]).ToString();
+                    message += "\nValidates Merkle Root: " + Blockchain.ValidateMerkleRoot(blockchain.blocks[i]).ToString(); 
+                    ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 
-                    String errorMessage = "Blockchain is invalid, doesn't satisfy Merkle Root Algorithm.";
-                    ShowMessage("Contiguity Check", errorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-
-                    break;
-                }
-
-                if (currentBlockPreviousHash != previousBlockHash)
-                {
-                    blockchain.isValid = false;
-
-                    String errorMessage = "Blockchain is invalid, previous hash is NOT valid.";
-                    ShowMessage("Previous Hash Invalidation Test", errorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-
-                    break;
-                }
-
-                if (blockchain.blocks[i].hash != blockchain.blocks[i].CreateHash())
-                {
-                    blockchain.isValid = false;
-
-                    String errorMessage = "Blockchain is invalid, hash is NOT valid.";
-                    ShowMessage("Hash Invalidation Test", errorMessage, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
-
-                    break;
+                    return;
                 }
             }
 
-            if (blockchain.isValid)
-            {
-                String message = "Blockchain is valid.";
-                ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-            }
+            String windowMessage = "Blockchain is valid.";
+            ShowMessage("Contiguity Check", windowMessage, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
 
         private void invalidBlockHashToolStripMenuItem_Click(object sender, EventArgs e)

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BlockchainAssignment
@@ -30,7 +32,7 @@ namespace BlockchainAssignment
         public String minerAddress = String.Empty;
 
         // Genesis Block Constructor //
-        public Block() 
+        public Block()
         {
             this.timeStamp = DateTime.Now;
             this.index = 0;
@@ -64,7 +66,7 @@ namespace BlockchainAssignment
             this.hash = Mine();
         }
 
-        public Transaction CreateRewardTransaction(List<Transaction> transactions) 
+        public Transaction CreateRewardTransaction(List<Transaction> transactions)
         {
             // Sum of all fees in trasaction list of current mined block
             fees = transactions.Aggregate(0.0, (acc, t) => acc + t.transactionFee);
@@ -76,17 +78,17 @@ namespace BlockchainAssignment
             return rewardTransaction;
         }
 
-        public String CreateHash() 
+        public String CreateHash()
         {
             String hash = String.Empty;
             SHA256 hasher = SHA256.Create();
 
-            String hashInput = index.ToString() + timeStamp.ToString() + previousBlockHash + nonce.ToString() + reward.ToString() + merkleRoot;
-            
+            String hashInput = index.ToString() + timeStamp.ToString() + previousBlockHash + nonce.ToString() + merkleRoot;
+
             Byte[] hashByte = hasher.ComputeHash(Encoding.UTF8.GetBytes(hashInput));
 
             // Converting hash from byte array to string and formatting doubles
-            foreach (byte x in hashByte) 
+            foreach (byte x in hashByte)
             {
                 hash += String.Format("{0:x2}", x);
             }
@@ -94,22 +96,81 @@ namespace BlockchainAssignment
             return hash;
         }
 
-        public String Mine() 
+        public string Mine()
         {
-            String hash = CreateHash();
-
             // Defining mining difficulty
-            String regexDefinition = new string('0', difficulty);
+            string regexDefinition = new string('0', difficulty);
 
-            // Perpetually rehash until difficulty is met
-            while (!hash.StartsWith(regexDefinition))
-            {
-                nonce++;
-                hash = CreateHash();
-            }
+            string result = null;
 
-            return hash;
+            Parallel.For(0, Environment.ProcessorCount, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+                (i, state) =>
+                {
+                    while (true)
+                    {
+                        string hash = CreateHash();
+
+                        if (hash.StartsWith(regexDefinition))
+                        {
+                            // A hash that meets the difficulty level has been found
+                            if (Interlocked.CompareExchange(ref result, hash, null) == null)
+                            {
+                                // This thread's hash is the winner
+                                state.Break();
+                                break;
+                            }
+                            else
+                            {
+                                // Another thread has already found the winner hash
+                                break;
+                            }
+                        }
+
+                        // Increment nonce and try again
+                        Interlocked.Increment(ref nonce);
+                    }
+                });
+
+            return result;
         }
+
+        //public string Mine()
+        //{
+        //    // Defining mining difficulty
+        //    string regexDefinition = new string('0', difficulty);
+
+        //    string result = null;
+
+        //    Parallel.For(0, Environment.ProcessorCount, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+        //        (i, state) =>
+        //        {
+        //            while (true)
+        //            {
+        //                // Increment nonce and create hash
+        //                long currentNonce = Interlocked.Increment(ref nonce);
+        //                string hash = CreateHash(currentNonce);
+
+        //                if (hash.StartsWith(regexDefinition))
+        //                {
+        //                    // A hash that meets the difficulty level has been found
+        //                    if (Interlocked.CompareExchange(ref result, hash, null) == null)
+        //                    {
+        //                        // This thread's hash is the winner
+        //                        state.Break();
+        //                        break;
+        //                    }
+        //                    else
+        //                    {
+        //                        // Another thread has already found the winner hash
+        //                        break;
+        //                    }
+        //                }
+        //            }
+        //        });
+
+        //    return result;
+        //}
+
 
         public static String MerkleRoot(List<Transaction> transactions)
         {
@@ -125,7 +186,7 @@ namespace BlockchainAssignment
                 return HashCode.HashTools.CombineHash(hashes[0], hashes[0]);
             }
 
-            while (hashes.Count != 1)
+            while (hashes.Count > 1)
             {
                 List<String> merkleLeaves = new List<String>();
                 for (int i = 0; i < hashes.Count; i += 2)
@@ -150,15 +211,15 @@ namespace BlockchainAssignment
         {
             String output = String.Empty;
 
-            foreach (Transaction tx in transactions) 
+            foreach (Transaction tx in transactions)
             {
                 output += tx.ToString() + "\n";
             }
 
-            return 
-                "Index: " + index.ToString() + 
-                "\nTimeStamp: " + timeStamp.ToString() + 
-                "\nPrevious Block's Hash: " + previousBlockHash + 
+            return
+                "Index: " + index.ToString() +
+                "\nTimeStamp: " + timeStamp.ToString() +
+                "\nPrevious Block's Hash: " + previousBlockHash +
                 "\nHash: " + hash +
                 "\nNonce: " + nonce.ToString() +
                 "\nMining Difficulty: " + difficulty.ToString() +

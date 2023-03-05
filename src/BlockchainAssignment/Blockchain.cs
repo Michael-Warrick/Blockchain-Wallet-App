@@ -11,7 +11,6 @@ namespace BlockchainAssignment
     {
         public List<Block> blocks = new List<Block>();
         public List<Transaction> transactionsPool = new List<Transaction>();
-        public bool isValid = true;
 
         int transactionsPerBlock = 5;
 
@@ -93,12 +92,18 @@ namespace BlockchainAssignment
             return balance;
         }
 
-        public bool ValidateMerkleRoot(Block block)
+        public static bool ValidateHash(Block block) 
+        {
+            String reHash = block.CreateHash();
+            return reHash.Equals(block.hash);
+        }
+
+        public static bool ValidateMerkleRoot(Block block)
         {
             String reMerkle = Block.MerkleRoot(block.transactions);
 
             return reMerkle.Equals(block.merkleRoot);
-        }
+        }   
 
         // Adjusts mining difficulty based on time it takes to mine
         public void AdjustDifficulty(Blockchain blockchain, int stride)
