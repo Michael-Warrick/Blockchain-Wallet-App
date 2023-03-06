@@ -103,6 +103,7 @@ namespace BlockchainAssignment
 
             string result = null;
 
+            // A parallel for-loop which is distributed equally over all available CPU cores
             Parallel.For(0, Environment.ProcessorCount, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
                 (i, state) =>
                 {

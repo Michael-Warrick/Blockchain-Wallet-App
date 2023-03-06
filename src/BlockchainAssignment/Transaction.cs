@@ -15,7 +15,7 @@ namespace BlockchainAssignment
         public String sourceAddress;
         public String destinationAddress;
 
-        DateTime timeStamp;
+        public DateTime timeStamp;
 
         public double amount;
         public double transactionFee;

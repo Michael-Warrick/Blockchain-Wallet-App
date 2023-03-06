@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.printerConsole = new System.Windows.Forms.RichTextBox();
             this.printButton = new System.Windows.Forms.Button();
             this.blockIndexTextBox = new System.Windows.Forms.TextBox();
@@ -57,8 +56,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.checkIntegrityButton = new System.Windows.Forms.Button();
             this.financeLabel = new System.Windows.Forms.Label();
-            this.mainMenu1 = new System.Windows.Forms.MainMenu(this.components);
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileMenuButton = new System.Windows.Forms.ToolStripMenuItem();
             this.openMenuItemButton = new System.Windows.Forms.ToolStripMenuItem();
             this.openRecentMenuButton = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,19 +65,40 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
-            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addressPreferenceToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.altruisticToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.greedyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.randomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.invalidateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.invalidBlockHashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.invalidBlockPreviousHashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.withdrawalAmountLabel = new System.Windows.Forms.Label();
             this.withdrawalTextBox = new System.Windows.Forms.TextBox();
             this.withdrawalButton = new System.Windows.Forms.Button();
             this.blocksLabel = new System.Windows.Forms.Label();
-            this.invalidateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.invalidBlockHashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.invalidBlockPreviousHashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.githToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.miningPreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.altruisticToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.greedyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.preferredAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.randomToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.testsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.invalidateHashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.invalidatePreviousHashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.badTransactionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -343,20 +361,6 @@
             this.financeLabel.Text = "F\r\nI\r\nN\r\nA\r\nN\r\nC\r\nE";
             this.financeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileMenuButton,
-            this.toolStripMenuItem3,
-            this.testToolStripMenuItem,
-            this.viewToolStripMenuItem,
-            this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1351, 24);
-            this.menuStrip1.TabIndex = 32;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
             // fileMenuButton
             // 
             this.fileMenuButton.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -374,7 +378,7 @@
             // openMenuItemButton
             // 
             this.openMenuItemButton.Name = "openMenuItemButton";
-            this.openMenuItemButton.Size = new System.Drawing.Size(180, 22);
+            this.openMenuItemButton.Size = new System.Drawing.Size(142, 22);
             this.openMenuItemButton.Text = "Open";
             // 
             // openRecentMenuButton
@@ -384,49 +388,90 @@
             this.dummy2txtToolStripMenuItem,
             this.dummy3txtToolStripMenuItem});
             this.openRecentMenuButton.Name = "openRecentMenuButton";
-            this.openRecentMenuButton.Size = new System.Drawing.Size(180, 22);
+            this.openRecentMenuButton.Size = new System.Drawing.Size(142, 22);
             this.openRecentMenuButton.Text = "Open Recent";
             // 
             // dummytxtToolStripMenuItem
             // 
             this.dummytxtToolStripMenuItem.Name = "dummytxtToolStripMenuItem";
-            this.dummytxtToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dummytxtToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.dummytxtToolStripMenuItem.Text = "Dummy.txt";
             // 
             // dummy2txtToolStripMenuItem
             // 
             this.dummy2txtToolStripMenuItem.Name = "dummy2txtToolStripMenuItem";
-            this.dummy2txtToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dummy2txtToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.dummy2txtToolStripMenuItem.Text = "Dummy2,txt";
             // 
             // dummy3txtToolStripMenuItem
             // 
             this.dummy3txtToolStripMenuItem.Name = "dummy3txtToolStripMenuItem";
-            this.dummy3txtToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.dummy3txtToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.dummy3txtToolStripMenuItem.Text = "Dummy3,txt";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(139, 6);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(142, 22);
             this.toolStripMenuItem1.Text = "Save";
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(142, 22);
             this.toolStripMenuItem2.Text = "Save As";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(139, 6);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(142, 22);
+            this.toolStripMenuItem4.Text = "Quit";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
             this.toolStripMenuItem3.Size = new System.Drawing.Size(39, 20);
             this.toolStripMenuItem3.Text = "Edit";
+            // 
+            // preferencesToolStripMenuItem
+            // 
+            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.preferencesToolStripMenuItem.Text = "Mining Preferences";
+            // 
+            // addressPreferenceToolStripMenuItem
+            // 
+            this.addressPreferenceToolStripMenuItem.Name = "addressPreferenceToolStripMenuItem";
+            this.addressPreferenceToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addressPreferenceToolStripMenuItem.Text = "Address Preference";
+            // 
+            // altruisticToolStripMenuItem
+            // 
+            this.altruisticToolStripMenuItem.Name = "altruisticToolStripMenuItem";
+            this.altruisticToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.altruisticToolStripMenuItem.Text = "Altruistic";
+            // 
+            // greedyToolStripMenuItem
+            // 
+            this.greedyToolStripMenuItem.Name = "greedyToolStripMenuItem";
+            this.greedyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.greedyToolStripMenuItem.Text = "Greedy";
+            // 
+            // randomToolStripMenuItem
+            // 
+            this.randomToolStripMenuItem.Name = "randomToolStripMenuItem";
+            this.randomToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.randomToolStripMenuItem.Text = "Random";
             // 
             // testToolStripMenuItem
             // 
@@ -435,6 +480,29 @@
             this.testToolStripMenuItem.Name = "testToolStripMenuItem";
             this.testToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
             this.testToolStripMenuItem.Text = "Tools";
+            // 
+            // invalidateToolStripMenuItem
+            // 
+            this.invalidateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.invalidBlockHashToolStripMenuItem,
+            this.invalidBlockPreviousHashToolStripMenuItem});
+            this.invalidateToolStripMenuItem.Name = "invalidateToolStripMenuItem";
+            this.invalidateToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.invalidateToolStripMenuItem.Text = "Tests";
+            // 
+            // invalidBlockHashToolStripMenuItem
+            // 
+            this.invalidBlockHashToolStripMenuItem.Name = "invalidBlockHashToolStripMenuItem";
+            this.invalidBlockHashToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.invalidBlockHashToolStripMenuItem.Text = "Invalid Block - Hash";
+            this.invalidBlockHashToolStripMenuItem.Click += new System.EventHandler(this.invalidBlockHashToolStripMenuItem_Click);
+            // 
+            // invalidBlockPreviousHashToolStripMenuItem
+            // 
+            this.invalidBlockPreviousHashToolStripMenuItem.Name = "invalidBlockPreviousHashToolStripMenuItem";
+            this.invalidBlockPreviousHashToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
+            this.invalidBlockPreviousHashToolStripMenuItem.Text = "Invalid Block - Previous Hash";
+            this.invalidBlockPreviousHashToolStripMenuItem.Click += new System.EventHandler(this.invalidBlockPreviousHashToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -447,17 +515,6 @@
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
-            // 
-            // toolStripMenuItem4
-            // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem4.Text = "Quit";
             // 
             // withdrawalAmountLabel
             // 
@@ -497,28 +554,135 @@
             this.blocksLabel.TabIndex = 36;
             this.blocksLabel.Text = "BLOCKS";
             // 
-            // invalidateToolStripMenuItem
+            // menuStrip1
             // 
-            this.invalidateToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.invalidBlockHashToolStripMenuItem,
-            this.invalidBlockPreviousHashToolStripMenuItem});
-            this.invalidateToolStripMenuItem.Name = "invalidateToolStripMenuItem";
-            this.invalidateToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.invalidateToolStripMenuItem.Text = "Tests";
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.githToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.toolsToolStripMenuItem,
+            this.viewToolStripMenuItem1,
+            this.helpToolStripMenuItem1});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1351, 24);
+            this.menuStrip1.TabIndex = 32;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // invalidBlockHashToolStripMenuItem
+            // githToolStripMenuItem
             // 
-            this.invalidBlockHashToolStripMenuItem.Name = "invalidBlockHashToolStripMenuItem";
-            this.invalidBlockHashToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
-            this.invalidBlockHashToolStripMenuItem.Text = "Invalid Block - Hash";
-            this.invalidBlockHashToolStripMenuItem.Click += new System.EventHandler(this.invalidBlockHashToolStripMenuItem_Click);
+            this.githToolStripMenuItem.Name = "githToolStripMenuItem";
+            this.githToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.githToolStripMenuItem.Text = "File";
             // 
-            // invalidBlockPreviousHashToolStripMenuItem
+            // editToolStripMenuItem
             // 
-            this.invalidBlockPreviousHashToolStripMenuItem.Name = "invalidBlockPreviousHashToolStripMenuItem";
-            this.invalidBlockPreviousHashToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
-            this.invalidBlockPreviousHashToolStripMenuItem.Text = "Invalid Block - Previous Hash";
-            this.invalidBlockPreviousHashToolStripMenuItem.Click += new System.EventHandler(this.invalidBlockPreviousHashToolStripMenuItem_Click);
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.miningPreferencesToolStripMenuItem});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // miningPreferencesToolStripMenuItem
+            // 
+            this.miningPreferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.altruisticToolStripMenuItem1,
+            this.greedyToolStripMenuItem1,
+            this.preferredAddressToolStripMenuItem,
+            this.randomToolStripMenuItem1});
+            this.miningPreferencesToolStripMenuItem.Image = global::BlockchainAssignment.Properties.Resources.mining_preferences;
+            this.miningPreferencesToolStripMenuItem.Name = "miningPreferencesToolStripMenuItem";
+            this.miningPreferencesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.miningPreferencesToolStripMenuItem.Text = "Mining Preferences";
+            // 
+            // altruisticToolStripMenuItem1
+            // 
+            this.altruisticToolStripMenuItem1.Image = global::BlockchainAssignment.Properties.Resources.heart;
+            this.altruisticToolStripMenuItem1.Name = "altruisticToolStripMenuItem1";
+            this.altruisticToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.altruisticToolStripMenuItem1.Text = "Altruistic";
+            this.altruisticToolStripMenuItem1.Click += new System.EventHandler(this.altruisticToolStripMenuItem1_Click);
+            // 
+            // greedyToolStripMenuItem1
+            // 
+            this.greedyToolStripMenuItem1.Image = global::BlockchainAssignment.Properties.Resources.eye;
+            this.greedyToolStripMenuItem1.Name = "greedyToolStripMenuItem1";
+            this.greedyToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.greedyToolStripMenuItem1.Text = "Greedy";
+            this.greedyToolStripMenuItem1.Click += new System.EventHandler(this.greedyToolStripMenuItem1_Click);
+            // 
+            // preferredAddressToolStripMenuItem
+            // 
+            this.preferredAddressToolStripMenuItem.Image = global::BlockchainAssignment.Properties.Resources.home;
+            this.preferredAddressToolStripMenuItem.Name = "preferredAddressToolStripMenuItem";
+            this.preferredAddressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.preferredAddressToolStripMenuItem.Text = "Preferred Address";
+            this.preferredAddressToolStripMenuItem.Click += new System.EventHandler(this.preferredAddressToolStripMenuItem_Click);
+            // 
+            // randomToolStripMenuItem1
+            // 
+            this.randomToolStripMenuItem1.Image = global::BlockchainAssignment.Properties.Resources.percentage;
+            this.randomToolStripMenuItem1.Name = "randomToolStripMenuItem1";
+            this.randomToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.randomToolStripMenuItem1.Text = "Random";
+            this.randomToolStripMenuItem1.Click += new System.EventHandler(this.randomToolStripMenuItem1_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.testsToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // testsToolStripMenuItem
+            // 
+            this.testsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.invalidateHashToolStripMenuItem,
+            this.invalidatePreviousHashToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.badTransactionToolStripMenuItem});
+            this.testsToolStripMenuItem.Image = global::BlockchainAssignment.Properties.Resources.coffee;
+            this.testsToolStripMenuItem.Name = "testsToolStripMenuItem";
+            this.testsToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.testsToolStripMenuItem.Text = "Tests";
+            // 
+            // invalidateHashToolStripMenuItem
+            // 
+            this.invalidateHashToolStripMenuItem.Image = global::BlockchainAssignment.Properties.Resources.hashtag;
+            this.invalidateHashToolStripMenuItem.Name = "invalidateHashToolStripMenuItem";
+            this.invalidateHashToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.invalidateHashToolStripMenuItem.Text = "Bad Hash";
+            // 
+            // invalidatePreviousHashToolStripMenuItem
+            // 
+            this.invalidatePreviousHashToolStripMenuItem.Image = global::BlockchainAssignment.Properties.Resources.corner_up_left;
+            this.invalidatePreviousHashToolStripMenuItem.Name = "invalidatePreviousHashToolStripMenuItem";
+            this.invalidatePreviousHashToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.invalidatePreviousHashToolStripMenuItem.Text = "Bad Previous Hash";
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(169, 6);
+            // 
+            // badTransactionToolStripMenuItem
+            // 
+            this.badTransactionToolStripMenuItem.Image = global::BlockchainAssignment.Properties.Resources.dollar_sign;
+            this.badTransactionToolStripMenuItem.Name = "badTransactionToolStripMenuItem";
+            this.badTransactionToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.badTransactionToolStripMenuItem.Text = "Bad Transaction";
+            // 
+            // viewToolStripMenuItem1
+            // 
+            this.viewToolStripMenuItem1.Name = "viewToolStripMenuItem1";
+            this.viewToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem1.Text = "View";
+            // 
+            // helpToolStripMenuItem1
+            // 
+            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem1.Text = "Help";
             // 
             // BlockchainApp
             // 
@@ -563,7 +727,6 @@
             this.ForeColor = System.Drawing.Color.Black;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
-            this.Menu = this.mainMenu1;
             this.Name = "BlockchainApp";
             this.Text = "Simple C# Blockchain App - 29018078";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -604,8 +767,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button checkIntegrityButton;
         private System.Windows.Forms.Label financeLabel;
-        private System.Windows.Forms.MainMenu mainMenu1;
-        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem fileMenuButton;
         private System.Windows.Forms.ToolStripMenuItem openMenuItemButton;
         private System.Windows.Forms.ToolStripMenuItem openRecentMenuButton;
@@ -628,6 +789,27 @@
         private System.Windows.Forms.ToolStripMenuItem invalidateToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem invalidBlockHashToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem invalidBlockPreviousHashToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addressPreferenceToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem altruisticToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem greedyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem randomToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem githToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem miningPreferencesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem testsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem invalidateHashToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem invalidatePreviousHashToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem altruisticToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem greedyToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem preferredAddressToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem randomToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem badTransactionToolStripMenuItem;
     }
 }
 

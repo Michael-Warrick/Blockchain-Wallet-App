@@ -4,8 +4,10 @@
 
 ### Weeks 1-5
 
+### Week 6.1
+![image](ref/Parallel%20Computing/Multithreaded%20Mining.png)
 
-### Week 6
+### Week 6.2
 ![image](ref/Dynamic%20Difficulty/index1.png)
 ![image](ref/Dynamic%20Difficulty/index2.png)
 ![image](ref/Dynamic%20Difficulty/index3.png)

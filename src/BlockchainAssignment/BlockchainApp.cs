@@ -126,6 +126,8 @@ namespace BlockchainAssignment
             {
                 List<Transaction> transactions = blockchain.GetPendingTransactions();
 
+                SortTransactionsByPreference(transactions);
+
                 Stopwatch stopwatch = new Stopwatch();
                 double elapsedTime;
 
@@ -297,7 +299,7 @@ namespace BlockchainAssignment
                 return;
             }
 
-            for (int i = 1; i <= blockchain.blocks.Count; i++)
+            for (int i = 1; i < blockchain.blocks.Count; i++)
             {
                 if (
                     blockchain.blocks[i].previousBlockHash != blockchain.blocks[i - 1].hash || // Check hash "chain"
@@ -307,7 +309,7 @@ namespace BlockchainAssignment
                 {
                     String message = "Blockchain is invalid.\n\n";
                     message += "\nValidates Hash: " + Blockchain.ValidateHash(blockchain.blocks[i]).ToString();
-                    message += "\nValidates Merkle Root: " + Blockchain.ValidateMerkleRoot(blockchain.blocks[i]).ToString(); 
+                    message += "\nValidates Merkle Root: " + Blockchain.ValidateMerkleRoot(blockchain.blocks[i]).ToString();
                     ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 
                     return;
@@ -332,6 +334,155 @@ namespace BlockchainAssignment
 
             string message = "Previous of last block has been set to [null]. Please check the blockchain's integrity.";
             ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+        }
+
+        public enum MiningPreference
+        {
+            AddressPreference,
+            Altruistic,
+            Greedy,
+            Random
+        }
+
+        public MiningPreference currentPreference = MiningPreference.Altruistic;
+
+        private bool isAltruisticEnabled = true;
+        private bool isGreedyEnabled = false;
+        private bool isPreferredAddressEnabled = false;
+        private bool isRandomEnabled = false;
+
+        private string preferredAddress = "";
+
+        private void SetPreference(MiningPreference miningPreference)
+        {
+            currentPreference = miningPreference;
+
+            isAltruisticEnabled = miningPreference == MiningPreference.Altruistic;
+            isGreedyEnabled = miningPreference == MiningPreference.Greedy;
+            isPreferredAddressEnabled = miningPreference == MiningPreference.AddressPreference;
+            isRandomEnabled = miningPreference == MiningPreference.Random;
+
+            UpdateMenuItems();
+        }
+
+        private void UpdateMenuItems()
+        {
+            altruisticToolStripMenuItem1.Checked = isAltruisticEnabled ? true : false;
+            greedyToolStripMenuItem1.Checked = isGreedyEnabled ? true : false;
+            preferredAddressToolStripMenuItem.Checked = isPreferredAddressEnabled ? true : false;
+            randomToolStripMenuItem1.Checked = isRandomEnabled ? true : false;
+        }
+
+        private readonly Random random = new Random();
+
+        // Simple shuffle based on random generator
+        private void Shuffle<T>(IList<T> list)
+        {
+            int n = list.Count;
+            while (n > 1)
+            {
+                n--;
+                int k = random.Next(n + 1);
+                T value = list[k];
+                list[k] = list[n];
+                list[n] = value;
+            }
+        }
+
+        private void SortTransactionsByPreference(List<Transaction> transactions)
+        {
+            // Altruistic
+            if (currentPreference == MiningPreference.Altruistic)
+            {
+                transactions.Sort((x, y) => x.timeStamp.CompareTo(y.timeStamp));
+            }
+
+            // Greedy
+            if (currentPreference == MiningPreference.Greedy)
+            {
+                transactions.Sort((x, y) => y.transactionFee.CompareTo(x.transactionFee));
+            }
+
+            // Preferred Address
+            if (currentPreference == MiningPreference.AddressPreference)
+            {
+                // Sorts with preferred address transactions leading and then by timestamp
+                transactions.Sort((x, y) =>
+                {
+                    if (x.destinationAddress == preferredAddress && y.destinationAddress != preferredAddress)
+                    {
+                        return -1;
+                    }
+                    else if (x.destinationAddress != preferredAddress && y.destinationAddress == preferredAddress)
+                    {
+                        return 1;
+                    }
+                    else
+                    {
+                        return x.timeStamp.CompareTo(y.timeStamp);
+                    }
+                });
+            }
+
+            // Random
+            if (currentPreference == MiningPreference.Random)
+            {
+                Shuffle(transactions);
+            }
+        }
+
+        private void altruisticToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SetPreference(MiningPreference.Altruistic);
+        }
+
+        private void greedyToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SetPreference(MiningPreference.Greedy);
+        }
+
+        private void preferredAddressToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            preferredAddress = ShowDialog("Enter a string: ");
+            SetPreference(MiningPreference.AddressPreference);
+        }
+
+        private void randomToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            SetPreference(MiningPreference.Random);
+        }
+
+        private string ShowDialog(string prompt)
+        {
+            Form inputBox = new Form();
+            inputBox.Text = "Preferred Address";
+            inputBox.Size = new System.Drawing.Size(300, 150);
+            inputBox.FormBorderStyle = FormBorderStyle.FixedDialog;
+            inputBox.StartPosition = FormStartPosition.CenterParent;
+            inputBox.ControlBox = false;
+
+            Label promptLabel = new Label();
+            promptLabel.Text = prompt;
+            promptLabel.AutoSize = true;
+            promptLabel.Location = new System.Drawing.Point(10, 20);
+            inputBox.Controls.Add(promptLabel);
+
+            TextBox inputTextBox = new TextBox();
+            inputTextBox.Location = new System.Drawing.Point(10, 50);
+            inputTextBox.Width = 270;
+            inputBox.Controls.Add(inputTextBox);
+
+            Button okButton = new Button();
+            okButton.Text = "OK";
+            okButton.Enabled = false;
+            okButton.Location = new System.Drawing.Point(205, 90);
+            okButton.Click += (s, e) => inputBox.Close();
+            inputBox.Controls.Add(okButton);
+
+            inputTextBox.TextChanged += (s, e) => okButton.Enabled = !string.IsNullOrEmpty(inputTextBox.Text);
+
+            inputBox.ShowDialog();
+            return inputTextBox.Text;
         }
     }
 }

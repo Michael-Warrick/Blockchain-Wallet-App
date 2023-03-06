@@ -70,6 +70,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -83,6 +84,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Icons\checkmark.png" />
+    <Content Include="Resources\Icons\coffee.png" />
+    <Content Include="Resources\Icons\corner-up-left.png" />
+    <Content Include="Resources\Icons\dollar-sign.png" />
+    <Content Include="Resources\Icons\eye.png" />
+    <Content Include="Resources\Icons\hashtag.png" />
+    <Content Include="Resources\Icons\heart.png" />
+    <Content Include="Resources\Icons\home.png" />
+    <Content Include="Resources\Icons\mining-preferences.png" />
+    <Content Include="Resources\Icons\percentage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
