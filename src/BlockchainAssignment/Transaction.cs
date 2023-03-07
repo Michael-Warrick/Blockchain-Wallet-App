@@ -20,6 +20,7 @@ namespace BlockchainAssignment
         public double amount;
         public double transactionFee;
 
+        // Determines a transaction's category
         public Category transactionCategory;
 
         // The four horsemen of transanctions
@@ -31,6 +32,7 @@ namespace BlockchainAssignment
             STANDARD
         }
 
+        // Transaction Constructor
         public Transaction(string srcAddress, string dstAddress, double amount, double fee, string privateKey)
         {
             this.sourceAddress = srcAddress;

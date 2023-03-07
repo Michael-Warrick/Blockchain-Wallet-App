@@ -13,7 +13,7 @@ namespace BlockchainAssignment
         public List<Transaction> transactionsPool = new List<Transaction>();
 
         int transactionsPerBlock = 5;
-
+        double requiredTransactionSpeed = 10.0;
         public int difficulty = 5;
 
         public Blockchain()
@@ -39,6 +39,7 @@ namespace BlockchainAssignment
             return blocks[blocks.Count - 1];
         }
 
+        // Gets all transactions waiting to be submitted
         public List<Transaction> GetPendingTransactions() 
         {
             int n = Math.Min(transactionsPerBlock, transactionsPool.Count);
@@ -49,6 +50,7 @@ namespace BlockchainAssignment
             return transactions;
         }
 
+        // Calculates balance based on pending and saved transactions to avoid double spending
         public double CalculateBalance(String address) 
         {
             double balance = 0.0;
@@ -107,13 +109,13 @@ namespace BlockchainAssignment
         }
 
         // Adjusts mining difficulty based on time it takes to mine
-        public void AdjustDifficulty(Blockchain blockchain, int stride)
+        public void AdjustDifficulty(Blockchain blockchain, int chunkSize)
         {
-            if ((blockchain.blocks.Count() - 1) % stride == 0)
+            if ((blockchain.blocks.Count() - 1) % chunkSize == 0)
             {
-                // Gets last 4 blocks of blockchain
-                double timeMined = blockchain.blocks.Skip(Math.Max(0, blockchain.blocks.Count() - stride)).Aggregate(0.0, (total, block) => total + block.mineTime) / stride;
-                double differenceRatio = ((stride * 2) / timeMined);
+                // Gets last 4 blocks of blockchain (chunk) and compares their average time to the requiredTransactionTime
+                double timeMined = blockchain.blocks.Skip(Math.Max(0, blockchain.blocks.Count() - chunkSize)).Aggregate(0.0, (total, block) => total + block.mineTime) / chunkSize;
+                double differenceRatio = (requiredTransactionSpeed / timeMined);
 
                 // Taking more time than predicted therefore decreasing difficulty
                 if (differenceRatio < 0.7)

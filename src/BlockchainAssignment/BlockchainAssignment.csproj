@@ -86,6 +86,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Resources\Icons\book.png" />
     <Content Include="Resources\Icons\checkmark.png" />
     <Content Include="Resources\Icons\coffee.png" />
     <Content Include="Resources\Icons\corner-up-left.png" />
@@ -94,6 +95,8 @@
     <Content Include="Resources\Icons\hashtag.png" />
     <Content Include="Resources\Icons\heart.png" />
     <Content Include="Resources\Icons\home.png" />
+    <Content Include="Resources\Icons\info.png" />
+    <Content Include="Resources\Icons\log-out.png" />
     <Content Include="Resources\Icons\mining-preferences.png" />
     <Content Include="Resources\Icons\percentage.png" />
   </ItemGroup>

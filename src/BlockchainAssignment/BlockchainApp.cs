@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlockchainAssignment.Wallet;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,14 +13,12 @@ using System.Windows.Forms;
 
 namespace BlockchainAssignment
 {
-    /// <summary>
-    /// Class <c>BlockchainApp</c> is where all the UI logic resides.
-    /// </summary>
     public partial class BlockchainApp : Form
     {
         Blockchain blockchain;
         Wallet.Wallet wallet;
 
+        // App Constructor
         public BlockchainApp()
         {
             InitializeComponent();
@@ -32,14 +31,13 @@ namespace BlockchainAssignment
         {
         }
 
-        /// <summary>
-        /// Method <c>ShowMessage</c> is a helper method that creates a popup window for the given parameters.
-        /// </summary>        
+        // Helper method that creates a popup window for the given parameters 
         public void ShowMessage(String title, String message, MessageBoxButtons buttonOptions, MessageBoxIcon type, MessageBoxDefaultButton defaultButton)
         {
             DialogResult resultWindow = MessageBox.Show(message, title, buttonOptions, type, defaultButton);
         }
 
+        // Helper Function
         public bool isPositiveDouble(String text)
         {
             bool isEmpty = string.IsNullOrEmpty(text);
@@ -57,9 +55,7 @@ namespace BlockchainAssignment
             }
         }
 
-        /// <summary>
-        /// Method <c>printButton_Click</c> prints a specific block and its associated elements for a given index.
-        /// </summary>
+        // Prints a specific block and its associated elements for a given index
         private void printButton_Click(object sender, EventArgs e)
         {
             int index = 0;
@@ -70,9 +66,7 @@ namespace BlockchainAssignment
             }
         }
 
-        /// <summary>
-        /// Method <c>showAllButton_Click</c> prints all blocks to the screen.
-        /// </summary>
+        // Prints all blocks to the screen
         private void showAllButton_Click(object sender, EventArgs e)
         {
             String output = String.Empty;
@@ -85,9 +79,7 @@ namespace BlockchainAssignment
             printerConsole.Text = output;
         }
 
-        /// <summary>
-        /// Method <c>createWalletButton_Click</c> creates a new wallet with a Public/Private Key.
-        /// </summary>
+        // Creates a new wallet with a Public/Private Key
         private void createWalletButton_Click(object sender, EventArgs e)
         {
             String privateKey;
@@ -100,9 +92,7 @@ namespace BlockchainAssignment
             ShowMessage("Message", message, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
 
-        /// <summary>
-        /// Method <c>checkKeysButton_Click</c> checks key validity.
-        /// </summary>
+        // Checks validity of keys
         private void checkKeysButton_Click(object sender, EventArgs e)
         {
             if (Wallet.Wallet.ValidatePrivateKey(privateKeyTextBox.Text, publicKeyTextBox.Text))
@@ -117,9 +107,7 @@ namespace BlockchainAssignment
             }
         }
 
-        /// <summary>
-        /// Method <c>newBlockButton_Click</c> adds a new block to the blockchain through mining.
-        /// </summary>
+        // Adds a new block to the blockchain through mining
         private void newBlockButton_Click(object sender, EventArgs e)
         {
             if (wallet != null)
@@ -151,9 +139,7 @@ namespace BlockchainAssignment
             }
         }
 
-        /// <summary>
-        /// Method <c>newTransactionButton_Click</c> creates a new transaction with an amount and a fee, only allowing for transactions to occur if wallet balance is greater/equal to total transfer amount.
-        /// </summary>
+        // Creates a new transaction with an amount and a fee, only allowing for transactions to occur if wallet balance is greater/equal to total transfer amount
         private void newTransactionButton_Click(object sender, EventArgs e)
         {
             bool amountIsEmpty = string.IsNullOrEmpty(amountTextBox.Text);
@@ -201,7 +187,7 @@ namespace BlockchainAssignment
             blockchain.transactionsPool = transactions;
         }
 
-        // A pseudo way of introducing foreign currency into the system
+        // Simulating introducing foreign currency into the system
         private void depositButton_Click(object sender, EventArgs e)
         {
             bool depositAmountIsEmpty = string.IsNullOrEmpty(depositTextBox.Text);
@@ -237,6 +223,7 @@ namespace BlockchainAssignment
             }
         }
 
+        // Allows users to simulate withdrawing from their "crypto wallet"
         private void withdrawalButton_Click(object sender, EventArgs e)
         {
             Double currentWithdrawal = Double.Parse(withdrawalTextBox.Text);
@@ -286,7 +273,7 @@ namespace BlockchainAssignment
         {
             if (blockchain.blocks.Count == 1)
             {
-                if (!blockchain.ValidateHash(blockchain.blocks[0])) // Recompute Hash to check validity
+                if (!blockchain.ValidateHash(blockchain.blocks[0]))
                 {
                     String message = "Blockchain is invalid";
                     ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
@@ -309,6 +296,7 @@ namespace BlockchainAssignment
                 {
                     String message = "Blockchain is invalid.\n\n";
                     message += "\nValidates Hash: " + blockchain.ValidateHash(blockchain.blocks[i]).ToString();
+                    message += "\nValidates Previous Hash: " + (blockchain.blocks[i].previousBlockHash == blockchain.blocks[i - 1].hash).ToString();
                     message += "\nValidates Merkle Root: " + Blockchain.ValidateMerkleRoot(blockchain.blocks[i]).ToString();
                     ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 
@@ -320,22 +308,7 @@ namespace BlockchainAssignment
             ShowMessage("Contiguity Check", windowMessage, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
         }
 
-        private void invalidBlockHashToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            blockchain.GetEndBlock().hash = null;
-
-            string message = "Hash of last block has been set to [null]. Please check the blockchain's integrity.";
-            ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-        }
-
-        private void invalidBlockPreviousHashToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            blockchain.GetEndBlock().previousBlockHash = null;
-
-            string message = "Previous of last block has been set to [null]. Please check the blockchain's integrity.";
-            ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
-        }
-
+        // Enum for setting the style of mining
         public enum MiningPreference
         {
             AddressPreference,
@@ -353,6 +326,7 @@ namespace BlockchainAssignment
 
         private string preferredAddress = "";
 
+        // Helper Function to set the preference easily
         private void SetPreference(MiningPreference miningPreference)
         {
             currentPreference = miningPreference;
@@ -365,6 +339,7 @@ namespace BlockchainAssignment
             UpdateMenuItems();
         }
 
+        // Updates the menuItems to display correctly selected item
         private void UpdateMenuItems()
         {
             altruisticToolStripMenuItem1.Checked = isAltruisticEnabled ? true : false;
@@ -389,6 +364,7 @@ namespace BlockchainAssignment
             }
         }
 
+        // General Sorting Function
         private void SortTransactionsByPreference(List<Transaction> transactions)
         {
             // Altruistic
@@ -450,6 +426,7 @@ namespace BlockchainAssignment
             SetPreference(MiningPreference.Random);
         }
 
+        // Helper function for opening a popup with a text prompt for the preferred address test case
         private string ShowDialog(string prompt)
         {
             Form inputBox = new Form();
@@ -481,6 +458,39 @@ namespace BlockchainAssignment
 
             inputBox.ShowDialog();
             return inputTextBox.Text;
+        }
+
+        private void invalidateHashToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            blockchain.GetEndBlock().hash = null;
+
+            string message = "Hash of last block has been set to [null]. Please check the blockchain's integrity.";
+            ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+        }
+
+        private void invalidatePreviousHashToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            blockchain.GetEndBlock().previousBlockHash = null;
+
+            string message = "Previous of last block has been set to [null]. Please check the blockchain's integrity.";
+            ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
+        }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void documentationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "Please go to: https://github.com/Michael-Warrick/UoR-Final-Year-Blockchain-Assignment";
+            ShowMessage("Documentation", message, MessageBoxButtons.OK, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
+        }
+
+        private void creditsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "Version 0.0.1 Development Build - Created by Student: 29018078";
+            ShowMessage("Credits", message, MessageBoxButtons.OK, MessageBoxIcon.Asterisk, MessageBoxDefaultButton.Button1);
         }
     }
 }

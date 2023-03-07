@@ -86,19 +86,22 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.githToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.documentationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.creditsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.miningPreferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.altruisticToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.greedyToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.preferredAddressToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.randomToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.invalidateHashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.invalidatePreviousHashToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.badTransactionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.viewToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -495,14 +498,12 @@
             this.invalidBlockHashToolStripMenuItem.Name = "invalidBlockHashToolStripMenuItem";
             this.invalidBlockHashToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
             this.invalidBlockHashToolStripMenuItem.Text = "Invalid Block - Hash";
-            this.invalidBlockHashToolStripMenuItem.Click += new System.EventHandler(this.invalidBlockHashToolStripMenuItem_Click);
             // 
             // invalidBlockPreviousHashToolStripMenuItem
             // 
             this.invalidBlockPreviousHashToolStripMenuItem.Name = "invalidBlockPreviousHashToolStripMenuItem";
             this.invalidBlockPreviousHashToolStripMenuItem.Size = new System.Drawing.Size(227, 22);
             this.invalidBlockPreviousHashToolStripMenuItem.Text = "Invalid Block - Previous Hash";
-            this.invalidBlockPreviousHashToolStripMenuItem.Click += new System.EventHandler(this.invalidBlockPreviousHashToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -560,7 +561,6 @@
             this.githToolStripMenuItem,
             this.editToolStripMenuItem,
             this.toolsToolStripMenuItem,
-            this.viewToolStripMenuItem1,
             this.helpToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -570,6 +570,8 @@
             // 
             // githToolStripMenuItem
             // 
+            this.githToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.quitToolStripMenuItem});
             this.githToolStripMenuItem.Name = "githToolStripMenuItem";
             this.githToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.githToolStripMenuItem.Text = "File";
@@ -582,6 +584,53 @@
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
             this.editToolStripMenuItem.Text = "Edit";
             // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.testsToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // helpToolStripMenuItem1
+            // 
+            this.helpToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.documentationToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.creditsToolStripMenuItem});
+            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
+            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
+            this.helpToolStripMenuItem1.Text = "Help";
+            // 
+            // documentationToolStripMenuItem
+            // 
+            this.documentationToolStripMenuItem.Image = global::BlockchainAssignment.Properties.Resources.book;
+            this.documentationToolStripMenuItem.Name = "documentationToolStripMenuItem";
+            this.documentationToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.documentationToolStripMenuItem.Text = "Documentation";
+            this.documentationToolStripMenuItem.Click += new System.EventHandler(this.documentationToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            // 
+            // creditsToolStripMenuItem
+            // 
+            this.creditsToolStripMenuItem.Image = global::BlockchainAssignment.Properties.Resources.info;
+            this.creditsToolStripMenuItem.Name = "creditsToolStripMenuItem";
+            this.creditsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.creditsToolStripMenuItem.Text = "Credits";
+            this.creditsToolStripMenuItem.Click += new System.EventHandler(this.creditsToolStripMenuItem_Click);
+            // 
+            // quitToolStripMenuItem
+            // 
+            this.quitToolStripMenuItem.Image = global::BlockchainAssignment.Properties.Resources.log_out;
+            this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.quitToolStripMenuItem.Text = "Quit";
+            this.quitToolStripMenuItem.Click += new System.EventHandler(this.quitToolStripMenuItem_Click);
+            // 
             // miningPreferencesToolStripMenuItem
             // 
             this.miningPreferencesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -591,14 +640,14 @@
             this.randomToolStripMenuItem1});
             this.miningPreferencesToolStripMenuItem.Image = global::BlockchainAssignment.Properties.Resources.mining_preferences;
             this.miningPreferencesToolStripMenuItem.Name = "miningPreferencesToolStripMenuItem";
-            this.miningPreferencesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.miningPreferencesToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
             this.miningPreferencesToolStripMenuItem.Text = "Mining Preferences";
             // 
             // altruisticToolStripMenuItem1
             // 
             this.altruisticToolStripMenuItem1.Image = global::BlockchainAssignment.Properties.Resources.heart;
             this.altruisticToolStripMenuItem1.Name = "altruisticToolStripMenuItem1";
-            this.altruisticToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.altruisticToolStripMenuItem1.Size = new System.Drawing.Size(167, 22);
             this.altruisticToolStripMenuItem1.Text = "Altruistic";
             this.altruisticToolStripMenuItem1.Click += new System.EventHandler(this.altruisticToolStripMenuItem1_Click);
             // 
@@ -606,7 +655,7 @@
             // 
             this.greedyToolStripMenuItem1.Image = global::BlockchainAssignment.Properties.Resources.eye;
             this.greedyToolStripMenuItem1.Name = "greedyToolStripMenuItem1";
-            this.greedyToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.greedyToolStripMenuItem1.Size = new System.Drawing.Size(167, 22);
             this.greedyToolStripMenuItem1.Text = "Greedy";
             this.greedyToolStripMenuItem1.Click += new System.EventHandler(this.greedyToolStripMenuItem1_Click);
             // 
@@ -614,7 +663,7 @@
             // 
             this.preferredAddressToolStripMenuItem.Image = global::BlockchainAssignment.Properties.Resources.home;
             this.preferredAddressToolStripMenuItem.Name = "preferredAddressToolStripMenuItem";
-            this.preferredAddressToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.preferredAddressToolStripMenuItem.Size = new System.Drawing.Size(167, 22);
             this.preferredAddressToolStripMenuItem.Text = "Preferred Address";
             this.preferredAddressToolStripMenuItem.Click += new System.EventHandler(this.preferredAddressToolStripMenuItem_Click);
             // 
@@ -622,17 +671,9 @@
             // 
             this.randomToolStripMenuItem1.Image = global::BlockchainAssignment.Properties.Resources.percentage;
             this.randomToolStripMenuItem1.Name = "randomToolStripMenuItem1";
-            this.randomToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.randomToolStripMenuItem1.Size = new System.Drawing.Size(167, 22);
             this.randomToolStripMenuItem1.Text = "Random";
             this.randomToolStripMenuItem1.Click += new System.EventHandler(this.randomToolStripMenuItem1_Click);
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.testsToolStripMenuItem});
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // testsToolStripMenuItem
             // 
@@ -643,7 +684,7 @@
             this.badTransactionToolStripMenuItem});
             this.testsToolStripMenuItem.Image = global::BlockchainAssignment.Properties.Resources.coffee;
             this.testsToolStripMenuItem.Name = "testsToolStripMenuItem";
-            this.testsToolStripMenuItem.Size = new System.Drawing.Size(99, 22);
+            this.testsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.testsToolStripMenuItem.Text = "Tests";
             // 
             // invalidateHashToolStripMenuItem
@@ -652,6 +693,7 @@
             this.invalidateHashToolStripMenuItem.Name = "invalidateHashToolStripMenuItem";
             this.invalidateHashToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.invalidateHashToolStripMenuItem.Text = "Bad Hash";
+            this.invalidateHashToolStripMenuItem.Click += new System.EventHandler(this.invalidateHashToolStripMenuItem_Click);
             // 
             // invalidatePreviousHashToolStripMenuItem
             // 
@@ -659,6 +701,7 @@
             this.invalidatePreviousHashToolStripMenuItem.Name = "invalidatePreviousHashToolStripMenuItem";
             this.invalidatePreviousHashToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.invalidatePreviousHashToolStripMenuItem.Text = "Bad Previous Hash";
+            this.invalidatePreviousHashToolStripMenuItem.Click += new System.EventHandler(this.invalidatePreviousHashToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
@@ -671,18 +714,6 @@
             this.badTransactionToolStripMenuItem.Name = "badTransactionToolStripMenuItem";
             this.badTransactionToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.badTransactionToolStripMenuItem.Text = "Bad Transaction";
-            // 
-            // viewToolStripMenuItem1
-            // 
-            this.viewToolStripMenuItem1.Name = "viewToolStripMenuItem1";
-            this.viewToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
-            this.viewToolStripMenuItem1.Text = "View";
-            // 
-            // helpToolStripMenuItem1
-            // 
-            this.helpToolStripMenuItem1.Name = "helpToolStripMenuItem1";
-            this.helpToolStripMenuItem1.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem1.Text = "Help";
             // 
             // BlockchainApp
             // 
@@ -802,7 +833,6 @@
         private System.Windows.Forms.ToolStripMenuItem testsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem invalidateHashToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem invalidatePreviousHashToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem altruisticToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem greedyToolStripMenuItem1;
@@ -810,6 +840,10 @@
         private System.Windows.Forms.ToolStripMenuItem randomToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem badTransactionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem quitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem documentationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem creditsToolStripMenuItem;
     }
 }
 

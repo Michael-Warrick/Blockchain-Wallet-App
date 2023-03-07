@@ -12,12 +12,13 @@ namespace BlockchainAssignment
 {
     internal class Block
     {
-        // Public Members //
+        // Principal Header Items
         public uint index;
         public String hash;
         DateTime timeStamp;
         public String previousBlockHash;
 
+        // Transactions and Validation Algorithm (Merkle Root)
         public List<Transaction> transactions = new List<Transaction>();
         public String merkleRoot;
 
@@ -30,17 +31,17 @@ namespace BlockchainAssignment
         // Rewards/Fees
         public Double reward = 1.0;
         public Double fees = 0.0;
-
         public String minerAddress = String.Empty;
 
+        // Required for separation of hash and nonce (necessary for threaded hash validation)
         public String hashCode;
 
-        // Private Members //
-        private static int processorCount = 4;
+        // Arrays required for modified, threaded mining algorithm 
+        private static int processorCount = Environment.ProcessorCount;
         private static String[] hashList = new String[processorCount];
         private static long[] nonceList = new long[processorCount];
 
-        // Genesis Block Constructor //
+        // Genesis Block Constructor
         public Block()
         {
             this.timeStamp = DateTime.Now;
@@ -52,6 +53,7 @@ namespace BlockchainAssignment
             (this.hash, this.nonce) = Mine();
         }
 
+        // Block Constructor Variation
         public Block(String hash, uint index)
         {
             this.timeStamp = DateTime.Now;
@@ -62,6 +64,7 @@ namespace BlockchainAssignment
             (this.hash, this.nonce) = Mine();
         }
 
+        // Next Block Constructor
         public Block(Block endBlock, List<Transaction> transactions, int difficulty, String address = "")
         {
             this.timeStamp = DateTime.Now;
@@ -80,6 +83,7 @@ namespace BlockchainAssignment
             (this.hash, this.nonce) = Mine();
         }
 
+        // Reward System
         public Transaction CreateRewardTransaction(List<Transaction> transactions)
         {
             // Sum of all fees in trasaction list of current mined block
@@ -92,7 +96,7 @@ namespace BlockchainAssignment
             return rewardTransaction;
         }
 
-        // NEW HASHER //
+        // Takes in an input and hashes it
         public static String CreateHash(String hashInput)
         {
             String hash = String.Empty;
@@ -109,6 +113,7 @@ namespace BlockchainAssignment
             return hash;
         }
 
+        // Solves for the difficulty level and doesn't stop until the hash satisfies the difficulty criteria
         public static void HashSolver(String inputHash, int index, int difficulty, CancellationToken token)
         {
             String hash = CreateHash(inputHash + nonceList[index].ToString());
@@ -128,6 +133,7 @@ namespace BlockchainAssignment
             hashList[index] = hash;
         }
 
+        // Tuple Function that distributes tasks evenly amongst all available cores (found in Environment.ProcessorCount)
         public (String Hash, long Nonce) Mine()
         {
             CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
@@ -152,31 +158,38 @@ namespace BlockchainAssignment
                 tasks.Add(task);
             }
 
+            // A winner is assigned to the task that met the criteria first
             int winner = Task.WaitAny(tasks.ToArray());
             cancelTokenSource.Cancel();
 
+            // The respective arrays are then traversed using winner to set their index
             String winningHash = hashList[winner];
             long winningNonce = nonceList[winner];
 
+            // Resets nonceList for next round
             nonceList = new long[processorCount];
 
             return (winningHash, winningNonce);
         }
 
+        // Merkle Root Algorithm Implementation
         public static String MerkleRoot(List<Transaction> transactions)
         {
             List<String> hashes = transactions.Select(t => t.hash).ToList();
 
+            // If no hashes are present (no transactions)
             if (hashes.Count == 0)
             {
                 return String.Empty;
             }
 
+            // If one hash is present
             if (hashes.Count == 1)
             {
                 return HashCode.HashTools.CombineHash(hashes[0], hashes[0]);
             }
 
+            // Accounting for multiple hashes
             while (hashes.Count > 1)
             {
                 List<String> merkleLeaves = new List<String>();
