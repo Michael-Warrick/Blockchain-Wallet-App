@@ -11,9 +11,9 @@ namespace BlockchainAssignment
     internal class Transaction
     {
         public String hash;
-        String signature;
         public String sourceAddress;
         public String destinationAddress;
+        private String signature;
 
         public DateTime timeStamp;
 

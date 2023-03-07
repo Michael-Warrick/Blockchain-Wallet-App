@@ -286,7 +286,7 @@ namespace BlockchainAssignment
         {
             if (blockchain.blocks.Count == 1)
             {
-                if (!Blockchain.ValidateHash(blockchain.blocks[0])) // Recompute Hash to check validity
+                if (!blockchain.ValidateHash(blockchain.blocks[0])) // Recompute Hash to check validity
                 {
                     String message = "Blockchain is invalid";
                     ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
@@ -303,12 +303,12 @@ namespace BlockchainAssignment
             {
                 if (
                     blockchain.blocks[i].previousBlockHash != blockchain.blocks[i - 1].hash || // Check hash "chain"
-                    !Blockchain.ValidateHash(blockchain.blocks[i]) ||  // Check each blocks hash
+                    !blockchain.ValidateHash(blockchain.blocks[i]) ||  // Check each blocks hash
                     !Blockchain.ValidateMerkleRoot(blockchain.blocks[i]) // Check transaction integrity using Merkle Root
                 )
                 {
                     String message = "Blockchain is invalid.\n\n";
-                    message += "\nValidates Hash: " + Blockchain.ValidateHash(blockchain.blocks[i]).ToString();
+                    message += "\nValidates Hash: " + blockchain.ValidateHash(blockchain.blocks[i]).ToString();
                     message += "\nValidates Merkle Root: " + Blockchain.ValidateMerkleRoot(blockchain.blocks[i]).ToString();
                     ShowMessage("Contiguity Check", message, MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
 
@@ -413,14 +413,12 @@ namespace BlockchainAssignment
                     {
                         return -1;
                     }
-                    else if (x.destinationAddress != preferredAddress && y.destinationAddress == preferredAddress)
+                    if (x.destinationAddress != preferredAddress && y.destinationAddress == preferredAddress)
                     {
                         return 1;
                     }
-                    else
-                    {
-                        return x.timeStamp.CompareTo(y.timeStamp);
-                    }
+
+                    return x.timeStamp.CompareTo(y.timeStamp);
                 });
             }
 

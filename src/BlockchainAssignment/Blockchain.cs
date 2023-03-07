@@ -92,9 +92,10 @@ namespace BlockchainAssignment
             return balance;
         }
 
-        public static bool ValidateHash(Block block) 
+        public bool ValidateHash(Block block)
         {
-            String reHash = block.CreateHash();
+            String reHash = Block.CreateHash(block.hashCode + block.nonce.ToString());
+
             return reHash.Equals(block.hash);
         }
 
@@ -103,7 +104,7 @@ namespace BlockchainAssignment
             String reMerkle = Block.MerkleRoot(block.transactions);
 
             return reMerkle.Equals(block.merkleRoot);
-        }   
+        }
 
         // Adjusts mining difficulty based on time it takes to mine
         public void AdjustDifficulty(Blockchain blockchain, int stride)

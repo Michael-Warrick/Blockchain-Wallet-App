@@ -2,6 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -11,6 +12,7 @@ namespace BlockchainAssignment
 {
     internal class Block
     {
+        // Public Members //
         public uint index;
         public String hash;
         DateTime timeStamp;
@@ -31,6 +33,13 @@ namespace BlockchainAssignment
 
         public String minerAddress = String.Empty;
 
+        public String hashCode;
+
+        // Private Members //
+        private static int processorCount = 4;
+        private static String[] hashList = new String[processorCount];
+        private static long[] nonceList = new long[processorCount];
+
         // Genesis Block Constructor //
         public Block()
         {
@@ -38,7 +47,9 @@ namespace BlockchainAssignment
             this.index = 0;
             this.previousBlockHash = "GENESIS BLOCK";
             this.reward = 0.0;
-            this.hash = CreateHash();
+            this.hashCode = index.ToString() + timeStamp.ToString() + previousBlockHash + merkleRoot;
+
+            (this.hash, this.nonce) = Mine();
         }
 
         public Block(String hash, uint index)
@@ -46,7 +57,9 @@ namespace BlockchainAssignment
             this.timeStamp = DateTime.Now;
             this.index = index + 1;
             this.previousBlockHash = hash;
-            this.hash = Mine();
+            this.hashCode = index.ToString() + timeStamp.ToString() + previousBlockHash + merkleRoot;
+
+            (this.hash, this.nonce) = Mine();
         }
 
         public Block(Block endBlock, List<Transaction> transactions, int difficulty, String address = "")
@@ -62,8 +75,9 @@ namespace BlockchainAssignment
             this.transactions = transactions;
 
             this.merkleRoot = MerkleRoot(transactions);
+            this.hashCode = index.ToString() + timeStamp.ToString() + previousBlockHash + merkleRoot;
 
-            this.hash = Mine();
+            (this.hash, this.nonce) = Mine();
         }
 
         public Transaction CreateRewardTransaction(List<Transaction> transactions)
@@ -78,12 +92,11 @@ namespace BlockchainAssignment
             return rewardTransaction;
         }
 
-        public String CreateHash()
+        // NEW HASHER //
+        public static String CreateHash(String hashInput)
         {
             String hash = String.Empty;
             SHA256 hasher = SHA256.Create();
-
-            String hashInput = index.ToString() + timeStamp.ToString() + previousBlockHash + nonce.ToString() + merkleRoot;
 
             Byte[] hashByte = hasher.ComputeHash(Encoding.UTF8.GetBytes(hashInput));
 
@@ -96,82 +109,59 @@ namespace BlockchainAssignment
             return hash;
         }
 
-        public string Mine()
+        public static void HashSolver(String inputHash, int index, int difficulty, CancellationToken token)
         {
-            // Defining mining difficulty
-            string regexDefinition = new string('0', difficulty);
+            String hash = CreateHash(inputHash + nonceList[index].ToString());
+            String difficultyCriteria = new String('0', difficulty);
 
-            string result = null;
-
-            // A parallel for-loop which is distributed equally over all available CPU cores
-            Parallel.For(0, Environment.ProcessorCount, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
-                (i, state) =>
+            while (hash == String.Empty || !hash.StartsWith(difficultyCriteria))
+            {
+                if (token.IsCancellationRequested)
                 {
-                    while (true)
-                    {
-                        string hash = CreateHash();
+                    token.ThrowIfCancellationRequested();
+                }
 
-                        if (hash.StartsWith(regexDefinition))
-                        {
-                            // A hash that meets the difficulty level has been found
-                            if (Interlocked.CompareExchange(ref result, hash, null) == null)
-                            {
-                                // This thread's hash is the winner
-                                state.Break();
-                                break;
-                            }
-                            else
-                            {
-                                // Another thread has already found the winner hash
-                                break;
-                            }
-                        }
+                nonceList[index]++;
+                hash = CreateHash(inputHash + nonceList[index].ToString());
+            }
 
-                        // Increment nonce and try again
-                        Interlocked.Increment(ref nonce);
-                    }
-                });
-
-            return result;
+            hashList[index] = hash;
         }
 
-        //public string Mine()
-        //{
-        //    // Defining mining difficulty
-        //    string regexDefinition = new string('0', difficulty);
+        public (String Hash, long Nonce) Mine()
+        {
+            CancellationTokenSource cancelTokenSource = new CancellationTokenSource();
+            CancellationToken cancelToken = cancelTokenSource.Token;
 
-        //    string result = null;
+            List<Task> tasks = new List<Task>();
 
-        //    Parallel.For(0, Environment.ProcessorCount, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
-        //        (i, state) =>
-        //        {
-        //            while (true)
-        //            {
-        //                // Increment nonce and create hash
-        //                long currentNonce = Interlocked.Increment(ref nonce);
-        //                string hash = CreateHash(currentNonce);
+            for (int i = 0; i < processorCount; i++)
+            {
+                Task task = Task.Factory.StartNew((index) =>
+                {
+                    try
+                    {
+                        HashSolver(hashCode, (int)index, difficulty, cancelToken);
+                    }
+                    catch (OperationCanceledException)
+                    {
 
-        //                if (hash.StartsWith(regexDefinition))
-        //                {
-        //                    // A hash that meets the difficulty level has been found
-        //                    if (Interlocked.CompareExchange(ref result, hash, null) == null)
-        //                    {
-        //                        // This thread's hash is the winner
-        //                        state.Break();
-        //                        break;
-        //                    }
-        //                    else
-        //                    {
-        //                        // Another thread has already found the winner hash
-        //                        break;
-        //                    }
-        //                }
-        //            }
-        //        });
+                        Console.WriteLine("Task " + i.ToString() + " has been terminated.");
+                    }
+                }, i, cancelToken);
+                tasks.Add(task);
+            }
 
-        //    return result;
-        //}
+            int winner = Task.WaitAny(tasks.ToArray());
+            cancelTokenSource.Cancel();
 
+            String winningHash = hashList[winner];
+            long winningNonce = nonceList[winner];
+
+            nonceList = new long[processorCount];
+
+            return (winningHash, winningNonce);
+        }
 
         public static String MerkleRoot(List<Transaction> transactions)
         {
